@@ -115,12 +115,28 @@ def on_postback(event):
     STATE.setdefault(uid, {})
 
     # 1) 詳細メニュー案内
-    if data.get("action") == "main_menu":
-        reply_text(
-            event.reply_token,
-            "📢 本診断メニュー\n・料金プラン\n・診断の流れ\nご希望の方はこのチャットで「詳細希望」と送ってください😊"
-        )
-        return
+   if data.get("action") == "main_menu":
+    reply_text(
+        event.reply_token,
+        """【ご案内】
+今の結果はセルフチェック版です。
+MIROIR 本診断では、AIがお写真を解析して緻密に診断します🔎
+
+■ 単体診断　各 ¥4,400
+　・顔立ちタイプ診断：フェイスバランスから印象を分析
+　・ボディライン診断：骨格とバランスでスタイルを判定
+　・パーソナルカラー診断：色素を27タイプで細分
+
+■ セット診断　¥11,000
+　・スタイルID診断：上記3つを統合し“似合う軸”を明確化
+　　→ なぜ似合うのかが分かり、服選びがラクになります
+
+※診断結果はLINEメッセージでお届けします
+※LOOK BOOK付き本格診断は別途ご案内予定です
+
+お申込みは、このLINEにご希望メニュー名を送るだけ😊"""
+    )
+    return
 
     # 2) Q1/Q2 の回答処理
     if "face" in data:
