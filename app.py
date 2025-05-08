@@ -4,15 +4,14 @@ from linebot.exceptions import InvalidSignatureError
 from linebot.models import TextMessage, TextSendMessage, MessageEvent
 import os
 
+app = Flask(__name__)
+line_bot_api = LineBotApi(os.getenv("LINE_CHANNEL_ACCESS_TOKEN"))
+handler = WebhookHandler(os.getenv("LINE_CHANNEL_SECRET"))
+
 @app.route("/", methods=["GET"])
 def health():
     # UptimeRobot 用の簡易ヘルスチェック
     return "OK", 200
-
-
-app = Flask(__name__)
-line_bot_api = LineBotApi(os.getenv("LINE_CHANNEL_ACCESS_TOKEN"))
-handler = WebhookHandler(os.getenv("LINE_CHANNEL_SECRET"))
 
 @app.route("/callback", methods=["POST"])
 def callback():
