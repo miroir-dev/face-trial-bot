@@ -76,10 +76,23 @@ def make_result(face, line):
         text=(
             f"🔍 仮診断結果：{t_name} タイプかも！\n"
             f"特徴：{t_kw}\n\n"
-            "詳しく知りたい方は下のボタンを押してください👇"
+            "気になる方は下のボタンからどうぞ👇"
         ),
         quick_reply=QuickReply(items=[
-            QuickReplyButton(action=PostbackAction(label="詳しく知りたい？▶︎", data="action=main_menu"))
+            # ★ Discovery 申込（フォームURL直リンク）
+            QuickReplyButton(
+                action=URIAction(
+                    label="Discovery を申し込む",
+                    uri="https://form.run/@miroirtokyo?plan=discovery"
+                )
+            ),
+            # ★ メニュー案内（既存のmain_menuへ）
+            QuickReplyButton(
+                action=PostbackAction(
+                    label="他メニューを見る",
+                    data="action=main_menu"
+                )
+            )
         ])
     )
 
@@ -104,20 +117,17 @@ def on_postback(event):
     if data.get("action") == "main_menu":
         reply_text(
             event.reply_token,
-            "【ご案内】\n"
-            "今の結果はセルフチェック版です。\n"
-            "MIROIR 本診断では、AIがお写真を解析して緻密に診断します🔎\n\n"
-            "■ 単体診断　各 ¥4,400\n"
-            "　・顔立ちタイプ診断：フェイスバランスから印象を分析\n"
-            "　・ボディライン診断：骨格とバランスでスタイルを判定\n"
-            "　・パーソナルカラー診断：色素を27タイプで細分\n\n"
-            "■ セット診断　¥11,000\n"
-            "　・スタイルID診断：上記3つを統合し“似合う軸”を明確化\n"
-            "　　→ なぜ似合うのかが分かり、服選びがラクになります\n\n"
-            "※診断結果はLINEメッセージでお届けします\n"
-            "※LOOK BOOK付き本格診断は別途ご案内予定です\n\n"
-            "お申込みは、このLINEにご希望メニュー名を送るだけ😊"
-        )
+        "【メニュー一覧】\n"
+        "———————————\n"
+        "🪞 Discovery　￥16,500\n"
+        "　似合う軸をAI + プロで特定\n\n"
+        "🎨 Design　　￥39,600\n"
+        "　服・髪・メイクをトータル提案\n\n"
+        "👗 Concierge　￥165,000\n"
+        "　45日伴走でイメージ戦略\n\n"
+        "お申し込みは『◯◯（メニュー名）』と送るか\n"
+        "フォーム▶︎ https://form.run/@miroirtokyo\n"
+    )
         return
 
     # 2) 質問回答処理
