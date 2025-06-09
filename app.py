@@ -5,7 +5,7 @@ from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
-    PostbackEvent, QuickReply, QuickReplyButton, PostbackAction
+    PostbackEvent, QuickReply, QuickReplyButton, PostbackAction, URIAction  # ★ここに URIAction を追加
 )
 
 # ───────── 環境変数（Render の Environment に設定） ─────────
